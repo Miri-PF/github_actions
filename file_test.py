@@ -1,4 +1,4 @@
-import pytest
+# Suppression de l'instruction Import pytest
 
 
 def test_calc_addition():
