@@ -1,30 +1,36 @@
-name: Pytest & flake8 control Push
+# Nom de l'action GitHub
+name: Control Push
+
+# Déclenchement de l'action
 on: push
 
 jobs:
   qa:
+    # Nom explicite du job
     name: Check tests
     runs-on: ubuntu-20.04
 
-steps:
-  - name: Checkout on master
-    uses: actions/checkout@v3
+    steps:
+      # Étape 1 : Extraction du code de la branche "master"
+      - name: Checkout on master
+        uses: actions/checkout@v3
 
-  - name: Set up Python
-    uses: actions/setup-python@master
-    with:
-      python-version: "3.x"
+      # Étape 2 : Configuration de Python
+      - name: Set up Python
+        uses: actions/setup-python@v3  # Correction : "master" remplacé par une version spécifique (v3)
+        with:
+          python-version: "3.x"
 
-- name: Install pytest and flake8
-  run: |
-    pip install pytest
-    pip install flake8
+      # Étape 3 : Installation des dépendances (pytest et flake8)
+      - name: Install pytest and flake8
+        run: |
+          pip install pytest flake8  # Correction : Installation combinée pour éviter la répétition.
 
-- name: Run tests
-  run: |
-    pytest
+      # Étape 4 : Exécution des tests unitaires
+      - name: Run tests
+        run: pytest  # Optimisé en une seule ligne.
 
-- name: Run flake8
-  uses: py-actions/flake8@v2
-
+      # Étape 5 : Analyse du code avec Flake8
+      - name: Run flake8
+        uses: py-actions/flake8@v2
 
